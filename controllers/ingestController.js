@@ -1,4 +1,7 @@
 const { meiliClient } = require("../utils/meiliClient");
+const pdfcontent = require("../models/pdfcontent");
+const { v4: uuidv4 } = require("uuid");
+
 
 const ingestPDFData = async (req, res) => {
   try {
@@ -8,13 +11,20 @@ const ingestPDFData = async (req, res) => {
       return res.status(400).json({ error: "Invalid data format" });
     }
 
+    let pdfId = data.pdfId;
+    const existing = await pdfcontent.findOne({ pdfId: data.pdfId });
+
+    if (existing) {
+      pdfId = `${data.pdfId}_${uuidv4().slice(0, 3)}`; 
+    }
+
     const index = meiliClient.index("pdfs");
     const docs = [];
 
     data.paragraphs.forEach((p, i) => {
       docs.push({
-        id: `${data.pdfId}_p${i}`,
-        pdfId: data.pdfId,
+        id: `${pdfId}_p${i}`,
+        pdfId: pdfId,
         type: "paragraph",
         content: typeof p === "string" ? p.trim() : (p.text || "").trim()
       });
@@ -22,8 +32,8 @@ const ingestPDFData = async (req, res) => {
 
     (data.tables || []).forEach((t, i) => {
       docs.push({
-        id: `${data.pdfId}_t${i}`,
-        pdfId: data.pdfId,
+        id: `${pdfId}_t${i}`,
+        pdfId: pdfId,
         type: "table",
         content: t.content ? String(t.content).trim() : ""
       });
@@ -31,8 +41,8 @@ const ingestPDFData = async (req, res) => {
 
     (data.images || []).forEach((img, i) => {
       docs.push({
-        id: `${data.pdfId}_i${i}`,
-        pdfId: data.pdfId,
+        id: `${pdfId}_i${i}`,
+        pdfId: pdfId,
         type: "image",
         content: img.caption ? String(img.caption).trim() : ""
       });
@@ -46,7 +56,16 @@ const ingestPDFData = async (req, res) => {
 
     await index.addDocuments(docs, { primaryKey: "id" });
 
-    res.json({ success: true, message: "Data ingested", docsCount: docs.length });
+    await pdfcontent.insertMany(
+      docs.map((d) => ({
+        pdfId: d.pdfId,
+        type: d.type,
+        content: d.content,
+        createdAt: new Date(),
+      }))
+    );
+
+    res.json({ success: true, message: `Data ingested. Reference pdfId: ${pdfId}`, finalpdfId: pdfId, docsCount: docs.length });
   } catch (err) {
     console.error("Ingest error:", err);
     res.status(500).json({ error: err.message });

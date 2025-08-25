@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "type":"commonjs",
+  "type": "commonjs",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -16,7 +16,9 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "meilisearch": "^0.52.0"
+    "meilisearch": "^0.52.0",
+    "mongoose": "^8.18.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
