@@ -1,6 +1,8 @@
 const { meiliClient } = require("../utils/meiliClient");
 
 
+
+
 const searchPDFData = async (req, res) => {
     try {
         const { pdfId, query } = req.body;
@@ -8,6 +10,9 @@ const searchPDFData = async (req, res) => {
         if (!pdfId || !query) {
             return res.status(400).json({ error: "pdfId and query are required" });
         }
+        
+        const index = meiliClient.index("pdfs");
+        await index.updateFilterableAttributes(["pdfId", "type"]);
 
         const paragraphResults = await meiliClient.index("pdfs").search(query, {
             filter: `pdfId = "${pdfId}" AND type = "paragraph"`,
