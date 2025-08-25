@@ -38,8 +38,8 @@ pdf-ingestion-search-api/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/pavankumarsidagam/pdf-search-pipeline.git
-cd pdf-search-pipeline
+git clone https://github.com/your-username/pdf-ingestion-search-api.git
+cd pdf-ingestion-search-api
 ```
 
 ### 2️⃣ Install Dependencies
@@ -49,11 +49,15 @@ npm install
 
 ### 3️⃣ Set Environment Variables
 
-Copy `.env.example` → `.env` and update values:
+Copy `.env.example` → `.env` and update values. If you have a local MongoDB instance, use the local connection string. Otherwise, use MongoDB Atlas for a cloud-hosted database.
+
+Example `.env` configuration:
 
 ```
+# Use this for MongoDB Atlas (cloud-hosted)
 MONGO_URI=mongodb+srv://<your-db-url>
-MONGO_URI=mongodb://localhost:27017/pdf-search-pipeline
+# OR use this for local MongoDB
+# MONGO_URI=mongodb://localhost:27017/pdf-search-pipeline
 MEILI_URL=https://meili--meilisearch--6y7qslcbcmz5.code.run
 MEILI_MASTER_KEY=F121523A
 API_SECRET_KEY=F121523A
@@ -67,17 +71,15 @@ npm run dev
 
 Now visit 👉 [http://localhost:5000/api](http://localhost:5000/api)
 
-## 🔍 API Endpoints
+## 📖 API Documentation
 
-### Authentication
-- `POST /api/auth/register` → Register a new user
-- `POST /api/auth/login` → Login & get JWT
+You can explore how the APIs work via our documentation here:  
+👉 [API Docs](http://localhost:5000/api)
 
-### PDF Ingestion
-- `POST /api/pdfs/ingest` → Upload parsed PDF data
+Some key endpoints:
 
-### Search
-- `GET /api/search?q=keyword` → Search documents
+- `POST /api/ingest` → Upload and store parsed PDF data.
+- `GET /api/search?q=keyword` → Search for documents.
 
 ## 🐳 Deployment with Docker (Optional)
 
