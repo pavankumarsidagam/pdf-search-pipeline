@@ -38,7 +38,7 @@ pdf-ingestion-search-api/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone [https://github.com/your-username/pdf-ingestion-search-api.git](https://github.com/pavankumarsidagam/pdf-search-pipeline.git)
+git clone https://github.com/your-username/pdf-ingestion-search-api.git
 cd pdf-search-pipeline
 ```
 
