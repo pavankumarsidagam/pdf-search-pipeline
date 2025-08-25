@@ -4,7 +4,7 @@ const { meiliClient } = require("../utils/meiliClient");
 const searchPDFData = async (req, res) => {
     try {
         const { pdfId, query } = req.body;
-        console.log(pdfId);
+        // console.log(pdfId);
         if (!pdfId || !query) {
             return res.status(400).json({ error: "pdfId and query are required" });
         }
