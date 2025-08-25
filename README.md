@@ -73,7 +73,7 @@ Now visit 👉 [http://localhost:5000](http://localhost:5000)
 ## 📖 API Documentation
 
 You can explore how the APIs work via our documentation here:  
-👉 [API Docs](http://localhost:5000/api)
+👉 [API Docs](https://github.com/pavankumarsidagam/pdf-search-pipeline/blob/main/PDF%20Docs.pdf)
 
 Some key endpoints:
 
