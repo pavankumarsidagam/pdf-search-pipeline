@@ -16,17 +16,24 @@ async function ensureIndex() {
             }
 
         } catch (err) {
-            if (err.cause.code === "index_not_found") {
+            if (err.cause?.code === "index_not_found") {
                 index = await meiliClient.createIndex("pdfs", { primaryKey: "id" });
             } else {
-                console.error("Index creation error:", err);
+                throw err;
             }
         }
-        await index.updateFilterableAttributes(["pdfId", "type"]);
+
+        try {
+            await index.updateFilterableAttributes(["pdfId", "type"]);
+        } catch (err) {
+            console.warn("Could not update filterable attributes:", err.message);
+        }
+        
         return index;
 
     } catch (err) {
         console.error("Index creation error:", err);
+        throw err;
     }
 }
 
