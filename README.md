@@ -38,8 +38,8 @@ pdf-ingestion-search-api/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/pdf-ingestion-search-api.git
-cd pdf-ingestion-search-api
+git clone [https://github.com/your-username/pdf-ingestion-search-api.git](https://github.com/pavankumarsidagam/pdf-search-pipeline.git)
+cd pdf-search-pipeline
 ```
 
 ### 2️⃣ Install Dependencies
@@ -69,7 +69,7 @@ PORT=5000
 npm run dev
 ```
 
-Now visit 👉 [http://localhost:5000/api](http://localhost:5000/api)
+Now visit 👉 [http://localhost:5000](http://localhost:5000)
 
 ## 📖 API Documentation
 
@@ -79,15 +79,15 @@ You can explore how the APIs work via our documentation here:
 Some key endpoints:
 
 - `POST /api/ingest` → Upload and store parsed PDF data.
-- `GET /api/search?q=keyword` → Search for documents.
+- `POST /api/search` → Search for documents.
 
 ## 🐳 Deployment with Docker (Optional)
 
 Easily containerize and deploy:
 
 ```bash
-docker build -t pdf-ingestion-api .
-docker run -p 5000:5000 pdf-ingestion-api
+docker build -t pdf-search-pipeline .
+docker run -p 5000:5000 pdf-search-pipeline
 ```
 
 ## 🛠️ Tech Stack
