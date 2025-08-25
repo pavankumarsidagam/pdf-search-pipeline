@@ -13,10 +13,8 @@ const authorize = (req, res, next) => {
         if (!token || token !== process.env.API_SECRET_KEY) {
             return res.status(403).json({ error: "Invalid or missing token" });
         }
-
-
+        
         next();
-
     } catch {
         console.error("Authorization error:", err);
         res.status(500).json({ error: "Authorization middleware error" });

@@ -11,14 +11,26 @@ const meiliClient = new MeiliSearch({
 async function ensureIndex() {
   try {
     const index = await meiliClient.getIndex("pdfs");
+    
+    if (index.primaryKey !== "id") {
+      await meiliClient.updateIndex('pdfs', {
+        primaryKey: 'id'
+      });
+    } 
+
   } catch (err) {
-    await meiliClient.createIndex("pdfs", { primaryKey: "id" });
+    if (err.cause.code === "index_not_found") {
+      await meiliClient.createIndex("pdfs", { primaryKey: "id" });
+      
+    } else {
+      throw err;
+    }
   }
 
   const index = meiliClient.index("pdfs");
   await index.updateFilterableAttributes(["pdfId", "type"]);
 }
 
-ensureIndex();
+ensureIndex().catch((err) => console.error(err));
 
 module.exports = {meiliClient};

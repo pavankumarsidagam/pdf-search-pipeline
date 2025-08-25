@@ -44,7 +44,7 @@ const ingestPDFData = async (req, res) => {
 
     // console.log(docs);
 
-    await index.addDocuments(docs);
+    await index.addDocuments(docs, { primaryKey: "id" });
 
     res.json({ success: true, message: "Data ingested", docsCount: docs.length });
   } catch (err) {
