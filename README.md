@@ -22,13 +22,12 @@ The service is already deployed on Render 🚀
 
 ```
 pdf-ingestion-search-api/
-├── src/
-│   ├── config/        # Configuration (DB, Meilisearch, JWT)
+├── src/ 
 │   ├── controllers/   # Request handling logic
 │   ├── models/        # MongoDB models
 │   ├── routes/        # API endpoints
-│   ├── services/      # Business logic (PDF parsing, search)
-│   └── utils/         # Helpers & utilities
+│   ├── middleware/    # Authentication
+│   └── utils/         # Configuration (DB, Meilisearch) & Helpers & utilities
 ├── .env.example       # Example environment variables
 ├── package.json       # Dependencies & scripts
 ├── README.md          # Project documentation
