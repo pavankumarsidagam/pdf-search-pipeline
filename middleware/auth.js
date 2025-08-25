@@ -15,7 +15,7 @@ const authorize = (req, res, next) => {
         }
         
         next();
-    } catch {
+    } catch (err) {
         console.error("Authorization error:", err);
         res.status(500).json({ error: "Authorization middleware error" });
     }
