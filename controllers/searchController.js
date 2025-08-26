@@ -1,8 +1,5 @@
 const { meiliClient } = require("../utils/meiliClient");
 
-
-
-
 const searchPDFData = async (req, res) => {
     try {
         const { pdfId, query } = req.body;
